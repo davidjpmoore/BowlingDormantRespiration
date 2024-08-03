@@ -1,0 +1,70 @@
+---
+title: "Ecosystem Respiration Dynamics"
+author: "Your Name"
+date: "2024-08-02"
+output: html_document
+---
+
+## Overview
+
+This model aims to simulate and analyze the respiration dynamics of two distinct ecosystem types: Deciduous Broadleaf Forest (DBF) and Evergreen Needleleaf Forest (ENF). The model focuses on the carbon pools within these ecosystems and their respective respiration rates. Respiration rates are influenced by seasonal temperature variations and the specific characteristics of each ecosystem.
+
+## Carbon Pools
+
+The model considers various carbon pools within the ecosystem, each contributing to either above-ground or below-ground respiration:
+
+1. **Above-ground Carbon Pools:**
+   - **Leaf Carbon (C_leaf)**
+   - **Stem Carbon (C_stem)**
+   - **Litter Carbon (C_litter)**
+   - **Coarse Woody Debris Carbon (C_CWD)**
+   
+2. **Below-ground Carbon Pools:**
+   - **Root Carbon (C_root)**
+   - **Soil Microbial Biomass Carbon (C_microbial)**
+   - **Fast Soil Carbon (C_fast_soil)**
+   - **Slow Soil Carbon (C_slow_soil)**
+
+## Temperature Data
+
+The model simulates daily temperatures for both air (T_air) and soil (T_soil) over a year (365 days). The temperatures exhibit seasonal variation:
+
+- **T_air** follows a sinusoidal pattern representing typical seasonal changes, with added random noise for variability.
+- **T_soil** follows a similar pattern but with 30% of the variance of **T_air** to reflect the more stable nature of soil temperatures.
+
+## Seasonal Variation in Leaf Carbon
+
+The leaf carbon pool (C_leaf) varies seasonally for each ecosystem type:
+
+- **DBF:** 
+  - C_leaf is zero before day 70 and after day 270.
+  - Between days 70 and 270, C_leaf follows a sine function, peaking at 100 units.
+  
+- **ENF:** 
+  - C_leaf increases incrementally by approximately 3% across the year.
+  - 70% of this increase occurs between days 200 and 250.
+
+## Respiration Calculation
+
+Respiration rates for each carbon pool are calculated using a Q10 function, which models the temperature dependency of respiration. The function is defined as:
+
+\[ \text{Respiration} = R_{\text{base}} \times C_{\text{pool}} \times Q10^{((T - 15) / 10)} \]
+
+where:
+- \( R_{\text{base}} \) is the base respiration rate at a reference temperature (15°C).
+- \( Q10 \) is a coefficient that describes how respiration rate increases with a 10°C rise in temperature.
+- \( C_{\text{pool}} \) is the carbon pool value.
+- \( T \) is the temperature (either T_air or T_soil).
+
+Each ecosystem type has different parameters (R_base and Q10) for each carbon pool, reflecting their unique characteristics.
+
+## Aggregated Respiration
+
+The model aggregates respiration rates into above-ground and below-ground components:
+
+- **R_above:** Sum of respiration from C_leaf, C_stem, C_litter, and C_CWD.
+- **R_below:** Sum of respiration from C_root, C_microbial, C_fast_soil, and C_slow_soil.
+
+## Analysis
+
+The model outputs daily respiration rates and their sum over the year for each ecosystem. It also calculates the ratio of R_above to R_below to understand the relative contribution of above-ground and below-ground processes.

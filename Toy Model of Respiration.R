@@ -14,10 +14,10 @@ days <- 1:365
 mean_annual_temp <- 15 # Mean annual temperature in Celsius
 
 # Simulate seasonal temperature variations for T_air
-T_air <- mean_annual_temp + 10 * sin(2 * pi * (days - 80) / 365) + rnorm(365, 0, 5)
+T_air <- mean_annual_temp + 10 * sin(2 * pi * (days - 80) / 365) + rnorm(365, 0, 5* 0.3)
 
 # Simulate T_soil with 30% of the variance of T_air
-T_soil <- mean_annual_temp + 10 * sin(2 * pi * (days - 80) / 365) + rnorm(365, 0, 5 * 0.3)
+T_soil <- mean_annual_temp + 7 * sin(2 * pi * (days - 80) / 365) + rnorm(365, 0, 5*0.3 )
 
 # Create a dataframe with the temperature data
 temperature_data <- data.frame(
